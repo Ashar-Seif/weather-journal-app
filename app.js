@@ -1,6 +1,9 @@
 /* Global Variables */
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-let key = '53447b562d8d25cc10aeab72b9c4bb3d';
+const apikey = '53447b562d8d25cc10aeab72b9c4bb3d';
+const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
+const postURL = 'http://localhost:8000/addWeatherData'
+const getURL = 'http://localhost:8000/all'
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
@@ -13,21 +16,21 @@ function performAction(e) {
     const postCode = document.getElementById('zip').value;
     const feelings = document.getElementById('feelings').value;
     console.log(newDate);
-    getTemperature(baseURL, postCode, key)
+    
+    getTemperature(baseURL, postCode, apikey)
         .then(function(data) {
             // Add data to POST request
-            postData('http://localhost:8000/addWeatherData', { temperature: data.main.temp, date: newDate, user_response: feelings })
+            postData( postURL, { temperature: data.main.temp, date: newDate, user_response: feelings })
                 // Function which updates UI
                 .then(function() {
                     updateUI()
                 })
-        })
+        }
 }
 
 // Async GET
 const getTemperature = async(baseURL, code, key) => {
-    // const getTemperatureDemo = async (url)=>{
-    const response = await fetch(baseURL + code + ',us' + '&APPID=' + key)
+    const response = await fetch(baseURL + code + ',us' + '&APPID=' + apikey + '&units=imperial')
     console.log(response);
     try {
         const data = await response.json();
@@ -61,7 +64,7 @@ const postData = async(url = '', data = {}) => {
 
 // Update user interface
 const updateUI = async() => {
-    const request = await fetch('http://localhost:8000/all');
+    const request = await fetch(getURL);
     try {
         const allData = await request.json();
         console.log('TRECIAS');
