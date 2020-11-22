@@ -22,7 +22,7 @@ app.use(cors());
 /* Initializing the main project folder */
 app.use(express.static('website'));
 
-const port = 3000;
+const port = 8000;
 
 
 // Setup Server
@@ -60,6 +60,5 @@ function addData(request, response) {
     projectData["date"] = data.date;
     projectData["temp"] = data.temp;
     projectData["feel"] = data.feeling;
-
     response.send(projectData);
 }

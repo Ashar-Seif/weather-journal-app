@@ -1,6 +1,6 @@
 /* Global Variables */
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-let key = '661daa7377189bfe425b6af1f07ac279';
+let key = '53447b562d8d25cc10aeab72b9c4bb3d';
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
@@ -16,7 +16,7 @@ function performAction(e) {
     getTemperature(baseURL, postCode, key)
         .then(function(data) {
             // Add data to POST request
-            postData('http://localhost:8080/addWeatherData', { temperature: data.main.temp, date: newDate, user_response: feelings })
+            postData('http://localhost:8000/addWeatherData', { temperature: data.main.temp, date: newDate, user_response: feelings })
                 // Function which updates UI
                 .then(function() {
                     updateUI()
@@ -61,7 +61,7 @@ const postData = async(url = '', data = {}) => {
 
 // Update user interface
 const updateUI = async() => {
-    const request = await fetch('http://localhost:8080/all');
+    const request = await fetch('http://localhost:8000/all');
     try {
         const allData = await request.json();
         console.log('TRECIAS');
