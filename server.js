@@ -31,7 +31,7 @@ const server = app.listen(port, listening);
 
 function listening() {
     console.log('server running');
-    console.log('running on localhost:${port}');
+    console.log('running on localhost' + port);
 }
 
 //get function
@@ -54,11 +54,11 @@ function addData(request, response) {
     console.log('server side data ', data)
 
     //date
-    //temp -> temperature
-    // feelings -> user's input
+    //temperature -> temperature
+    // feelings -> user_responce
 
     projectData["date"] = data.date;
-    projectData["temp"] = data.temp;
-    projectData["feel"] = data.feeling;
+    projectData["temp"] = data.temperature;
+    projectData["feel"] = data.user_response;
     response.send(projectData);
 }
